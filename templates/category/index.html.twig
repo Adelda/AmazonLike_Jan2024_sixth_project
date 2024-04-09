@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des catégories{% endblock %}
+
+{% block toto %}<h1>Autre titre</h1>{% endblock %}
+
+{% block body %}
+    {% for i in 1..5 %}
+    <div data-controller="faq">
+        <h2 data-action="click->faq#toggle">Titre de la question {{ i }}</h2>
+        <div data-faq-target="answer" style="display: none;">
+            lorem ipsum dolor sqiodjfgiojn qjzan zko fna"oklzj, jnjfb   nz aijshnv ijezbdnswdsfgh
+            dsfg
+            defg
+            defg
+        </div>
+    </div>
+    {% endfor %}
+
+    <h1>Liste des catégories</h1>
+    <a class="btn btn-primary" href="{{ path('app_categories_new') }}">Nouvelle catégorie</a>
+    
+    {# <?php foreach ($categories as $category): ?> #}
+    {# {% for category in categories %}
+        <h2>
+            <a href="{{ path('app_categories_show', { id: category.id }) }}">{{ category.name }}</a>
+        </h2>
+        
+        {% if category.parent %}
+            <p>Enfant de {{ category.parent.name }}</p>
+        {% endif %} 
+    {% endfor %} #}
+
+    {{ form(form) }}
+
+    <table>
+        <tr>
+            {# sorting of properties based on query components #}
+            <th>{{ knp_pagination_sortable(categories, 'Id', 'c.id') }}</th>
+            <th{% if categories.isSorted('c.name') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(categories, 'Name', 'c.name') }}
+            </th>
+        </tr>
+
+        {# table body #}
+        {% for category in categories %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ category.id }}</td>
+                <td><a href="{{ path('app_categories_show', { slug: category.slug }) }}">{{ category.name }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(categories) }}
+    </div>
+{% endblock %}

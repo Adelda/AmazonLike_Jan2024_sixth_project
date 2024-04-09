@@ -1,0 +1,19 @@
+<div{{ attributes }}>
+    <input type="search" data-model="on(change)|query" />
+
+    {{ form(form, {
+        attr: {
+            'novalidate': 'novalidate',
+            'data-action': 'live#action',
+            'data-action-name': 'prevent|save'
+        }
+    }) }}
+
+    <ul class="navbar-nav mr-auto">
+        {% for category in this.getCategories() %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_categories_show', { slug: category.slug }) }}">{{ category.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
